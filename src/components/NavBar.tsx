@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import logo from "/logo.png";
-import carrinho from "/carrinho.png";
 import useProdutoStore from "../util/produtoStore";
 import useProdutosComPaginacao from "../hooks/useProdutosComPaginacao";
 
@@ -25,11 +24,28 @@ function NavBar() {
       <div className="container mt-3">
         <div className="row">
           <div className="col-3 d-flex align-items-center">
-            <Link to="/" style={{ textDecoration: "none", fontSize: "16px" }}>
-              <img className="d-md-block" src={logo} style={{ width: "100px" }} />
+            <Link to="/">
+              <img className="d-md-block" src={logo} style={{ width: "90px" }} />
             </Link>
           </div>
-          <div className="col-6">
+          <div className="justify-content-around col-6 row align-items-center">
+            <div className="col d-flex justify-content-center align-items-center">
+              <Link to="/listar-produtos" style={{ textDecoration: "none" }}>
+                Listar produtos
+              </Link>
+            </div>
+            <div className="col d-flex justify-content-center align-items-center">
+              <Link to="/cadastrar-produto" style={{ textDecoration: "none" }}>
+                Cadastrar produto
+              </Link>
+            </div>
+            <div className="col d-flex justify-content-center align-items-center">
+              <Link className="ms-1" to="/login" style={{ textDecoration: "none" }}>
+                Login
+              </Link>
+            </div>
+          </div>
+          {/* <div className="col-6">
             <ul style={{ listStyleType: "none" }}>
               <li className="mt-2 d-flex justify-content-center">
                 Faça seu
@@ -48,24 +64,17 @@ function NavBar() {
                 </Link>
               </li>
             </ul>
-          </div>
-          <div className="col-3 d-flex align-items-center justify-content-end">
+          </div> */}
+          <div className="col-3 d-flex align-items-center justify-content-end mt-3">
             <ul style={{ listStyleType: "none" }}>
-              <li className="mt-2 d-flex justify-content-center">
+              <li className="d-flex justify-content-center align-items-center">
                 <Link to="/carrinho" style={{ textDecoration: "none" }}>
-                  <img className="d-none d-md-block" src={carrinho} style={{ width: "35px" }} />
-                  Carrinho
+                  <svg id="i-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M6 6 L30 6 27 19 9 19 M27 23 L10 23 5 2 2 2" />
+                    <circle cx="25" cy="27" r="2" />
+                    <circle cx="12" cy="27" r="2" />
+                  </svg>
                 </Link>
-              </li>
-              <li className="d-flex justify-content-center">
-                R${" "}
-                {produtos
-                  .reduce((total, produto) => total + produto.qtdEstoque * produto.preco, 0)
-                  .toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                    useGrouping: true,
-                  })}
               </li>
             </ul>
           </div>
