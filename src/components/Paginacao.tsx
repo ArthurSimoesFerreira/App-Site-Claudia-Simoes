@@ -5,6 +5,9 @@ const Paginacao = () => {
   const pagina = useProdutoStore(s => s.pagina);
   const tamanho = useProdutoStore(s => s.tamanho);
   const nome = useProdutoStore(s => s.nome);
+  const ordenacaoCampo = useProdutoStore(s => s.ordenacaoCampo);
+  const ordenacaoDirecao = useProdutoStore(s => s.ordenacaoDirecao);
+
   const setPagina = useProdutoStore(s => s.setPagina);
 
   const tratarPaginacao = (pagina: number) => {
@@ -15,7 +18,7 @@ const Paginacao = () => {
     data: resultadoPaginado,
     isPending: carregandoProdutos,
     error: errorProdutos,
-  } = useProdutosComPaginacao({pagina, tamanho, nome});
+  } = useProdutosComPaginacao({ pagina, tamanho, nome, ordenacaoCampo, ordenacaoDirecao });
 
   if (carregandoProdutos) return <h6>Carregando...</h6>;
   if (errorProdutos) throw errorProdutos;
@@ -39,7 +42,7 @@ const Paginacao = () => {
   }
 
   if (totalDePaginas < 2) return null;
-  
+
   return (
     <nav aria-label="Paginação">
       <ul className="pagination">
