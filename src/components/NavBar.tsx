@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import hortifruti from "/hortifruti-icon.png";
+import logo from "/logo.png";
 import carrinho from "/carrinho.png";
 import useProdutoStore from "../util/produtoStore";
 import useProdutosComPaginacao from "../hooks/useProdutosComPaginacao";
@@ -22,12 +22,11 @@ function NavBar() {
 
   return (
     <>
-      <div className="container mt-3 mb-2">
+      <div className="container mt-3">
         <div className="row">
           <div className="col-3 d-flex align-items-center">
             <Link to="/" style={{ textDecoration: "none", fontSize: "16px" }}>
-              <img className="d-none d-md-block" src={hortifruti} style={{ width: "70px" }} />
-              Hortifruti
+              <img className="d-md-block" src={logo} style={{ width: "100px" }} />
             </Link>
           </div>
           <div className="col-6">
@@ -73,7 +72,7 @@ function NavBar() {
         </div>
       </div>
 
-      <div className="bg-danger" style={{ padding: "3px" }}></div>
+      <div className="bg-secondary" style={{ padding: "1px" }}></div>
     </>
   );
 }
