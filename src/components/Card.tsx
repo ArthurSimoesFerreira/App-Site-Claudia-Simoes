@@ -11,15 +11,24 @@ interface Props {
 
 const Card = ({ imagem, titulo, descricao, preco, footer }: Props) => {
   return (
-    <div className="card h-100 border-0">
-      <img src={imagem} className="card-img-top" alt={titulo} />
-      <div className="card-body">
-        <h5 className="card-title">{titulo}</h5>
-        <p className="card-text">{descricao}</p>
-        <p className="card-text fw-bold" style={{color: "rgb(220, 53, 69)"}}>R$ {preco}</p>
+    <div className="card mb-3" style={{ maxWidth: "540px", minHeight: "300px" }}>
+      <div className="row g-0" style={{ minHeight: "300px" }}>
+        <div className="col-md-6">
+          <img src={imagem} className="img-fluid rounded-start h-100" alt={titulo} />
+        </div>
+        <div className="col-md-6 h-100">
+          <div className="card-body">
+            <h5 className="card-title">{titulo}</h5>
+            <p className="card-text">{descricao}</p>
+            <p className="card-text fw-bold" style={{ color: "rgb(220, 53, 69)" }}>
+              R$ {preco}
+            </p>
+            <div className="card-footer border-0 p-0">{footer}</div>
+          </div>
+        </div>
       </div>
-      <div className="card-footer border-0 p-0">{footer}</div>
     </div>
   );
 };
+
 export default Card;
