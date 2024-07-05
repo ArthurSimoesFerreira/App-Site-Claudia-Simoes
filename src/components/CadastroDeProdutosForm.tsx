@@ -112,10 +112,10 @@ const CadastroDeProdutosForm = () => {
       disponivel: disponivel,
       dataCadastro: new Date( // DD/MM/AAAA   AAAA-MM-DD
         data_cadastro.substring(6, 10) +
-          "-" +
-          data_cadastro.substring(3, 5) +
-          "-" +
-          data_cadastro.substring(0, 2)
+        "-" +
+        data_cadastro.substring(3, 5) +
+        "-" +
+        data_cadastro.substring(0, 2)
       ),
       qtdEstoque: qtd_estoque,
       preco: preco,
@@ -195,9 +195,9 @@ const CadastroDeProdutosForm = () => {
                 }
               >
                 <option value="0">Selecione uma categoria</option>
-                <option value="1">Fruta</option>
-                <option value="2">Legume</option>
-                <option value="3">Verdura</option>
+                <option value="1">Top</option>
+                <option value="2">Legging</option>
+                <option value="3">Camisa</option>
               </select>
               <div className="invalid-feedback">{errors.categoria?.message}</div>
             </div>
@@ -320,7 +320,7 @@ const CadastroDeProdutosForm = () => {
           <div className="row">
             <div className="col-xl-10 offset-xl-2 d-flex">
               <button
-                style={{minWidth: "100px"}}
+                style={{ minWidth: "100px" }}
                 id="botao"
                 type="submit"
                 className="btn btn-primary btn-sm d-flex align-items-center me-2"
