@@ -29,7 +29,7 @@ const categoriaValida = (categoria: string) => {
 };
 
 const regexData = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
-const regexImagem = /^[a-z]+\.(gif|jpg|png|bmp)$/;
+const regexImagem = /^[a-z0-9_]+\.(gif|jpg|png|bmp)$/;
 const schema = z.object({
   nome: z
     .string()
