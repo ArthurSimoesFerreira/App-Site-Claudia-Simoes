@@ -20,6 +20,7 @@ const CardsDeProdutosPage = () => {
         {produtos?.map((produto) => (
           <div className="col-lg-6 col-md-6 col-sm-6 col-6">
             <Card
+              id={produto.id}
               imagem={produto.imagem}
               titulo={produto.nome}
               descricao={produto.descricao}

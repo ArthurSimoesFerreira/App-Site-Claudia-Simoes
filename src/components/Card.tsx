@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {
   id?: number;
@@ -9,7 +10,7 @@ interface Props {
   footer: ReactNode;
 }
 
-const Card = ({ imagem, titulo, descricao, preco, footer }: Props) => {
+const Card = ({ id, imagem, titulo, descricao, preco, footer }: Props) => {
   return (
     <div className="card mb-3" style={{ maxWidth: "540px", minHeight: "300px" }}>
       <div className="row g-0" style={{ minHeight: "300px", maxHeight: "300px" }}>
@@ -18,7 +19,9 @@ const Card = ({ imagem, titulo, descricao, preco, footer }: Props) => {
         </div>
         <div className="col-md-6 h-100">
           <div className="card-body">
-            <h5 className="card-title">{titulo}</h5>
+            <Link to={`/produtos/${id}`} style={{ textDecoration: "none" }}>
+              <h5 className="card-title">{titulo}</h5>
+            </Link>
             <p className="card-text">{descricao}</p>
             <p className="card-text fw-bold" style={{ color: "rgb(220, 53, 69)" }}>
               R$ {preco}

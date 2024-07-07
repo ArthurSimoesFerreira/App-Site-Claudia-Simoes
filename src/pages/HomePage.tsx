@@ -5,17 +5,17 @@ const HomePage = () => {
     <div className="row">
       <div className="col-lg-2">
         <h5>Categorias</h5>
-        <div className="nav flex-column nav-pills">
+        <div className="nav flex-column nav-pills border">
           <NavLink aria-current="page" className="nav-link" to="/">
             Todos
           </NavLink>
-          <NavLink aria-current="page" className="nav-link" to="/tops">
+          <NavLink aria-current="page" className="nav-link" to="/top">
             Tops
           </NavLink>
-          <NavLink aria-current="page" className="nav-link" to="/leggings">
+          <NavLink aria-current="page" className="nav-link" to="/legging">
             Leggings
           </NavLink>
-          <NavLink aria-current="page" className="nav-link" to="/camisas">
+          <NavLink aria-current="page" className="nav-link" to="/camisa">
             Camisas
           </NavLink>
         </div>

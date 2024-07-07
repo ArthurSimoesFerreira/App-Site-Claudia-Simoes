@@ -9,7 +9,7 @@ const useAPI = <T>(endpoint: string) => {
     });
 
     const recuperar = () => axiosInstance
-        .get<T[]>(endpoint)
+        .get<T>(endpoint)
         .then((response) => response.data)
         .catch((error) => {
             if (error.response) {
@@ -18,7 +18,7 @@ const useAPI = <T>(endpoint: string) => {
                     error.response.data.errorCode);
                 // significa servidor respondeu
             }
-            else if(error.request) {
+            else if (error.request) {
                 throw error;
                 // significa que o servidor não respondeu
             }
@@ -26,7 +26,7 @@ const useAPI = <T>(endpoint: string) => {
                 throw error;
                 // erro desconhecido
             }
-        })
+        });
 
     const remover = (id: number) => axiosInstance
         .delete<T>(endpoint + "/" + id)
@@ -38,7 +38,7 @@ const useAPI = <T>(endpoint: string) => {
                     error.response.data.errorCode);
                 // significa servidor respondeu
             }
-            else if(error.request) {
+            else if (error.request) {
                 throw error;
                 // significa que o servidor não respondeu
             }
@@ -46,7 +46,7 @@ const useAPI = <T>(endpoint: string) => {
                 throw error;
                 // erro desconhecido
             }
-        })
+        });
 
     const recuperarPagina = (config: AxiosRequestConfig) => axiosInstance
         .get<ResultadoPaginado<T>>(endpoint + "/paginacao", config)
@@ -58,7 +58,7 @@ const useAPI = <T>(endpoint: string) => {
                     error.response.data.errorCode);
                 // significa servidor respondeu
             }
-            else if(error.request) {
+            else if (error.request) {
                 throw error;
                 // significa que o servidor não respondeu
             }
@@ -66,7 +66,7 @@ const useAPI = <T>(endpoint: string) => {
                 throw error;
                 // erro desconhecido
             }
-        })
+        });
 
     const cadastrar = (obj: T) => axiosInstance
         .post<T>(endpoint, obj)
@@ -87,7 +87,7 @@ const useAPI = <T>(endpoint: string) => {
                         error.response.data.errorCode);
                 }
             }
-            else if(error.request) {
+            else if (error.request) {
                 throw error;
                 // significa que o servidor não respondeu
             }
@@ -95,7 +95,7 @@ const useAPI = <T>(endpoint: string) => {
                 throw error;
                 // erro desconhecido
             }
-        })
+        });
 
     const alterar = (obj: T) => axiosInstance
         .put<T>(endpoint, obj)
@@ -116,7 +116,7 @@ const useAPI = <T>(endpoint: string) => {
                         error.response.data.errorCode);
                 }
             }
-            else if(error.request) {
+            else if (error.request) {
                 throw error;
                 // significa que o servidor não respondeu
             }
@@ -124,8 +124,8 @@ const useAPI = <T>(endpoint: string) => {
                 throw error;
                 // erro desconhecido
             }
-        })
+        });
 
-    return {recuperar, remover, recuperarPagina, cadastrar, alterar}    
+    return { recuperar, remover, recuperarPagina, cadastrar, alterar }
 }
-export default useAPI
+export default useAPI;

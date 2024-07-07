@@ -7,6 +7,7 @@ import CadastroDeProdutosPage from '../pages/CadastroDeProdutosPage';
 import ListaDeProdutosPage from '../pages/ListaDeProdutosPage';
 import ErrorPage from '../pages/ErrorPage';
 import CardsDeProdutosPage from '../pages/CardsDeProdutosPage';
+import DetalhesDoProdutoPage from '../pages/DetalhesDoProdutoPage';
 
 const router = createBrowserRouter([
     {
@@ -14,8 +15,8 @@ const router = createBrowserRouter([
         element: <Layout />,
         errorElement: <ErrorPage />,
         children: [
-            { 
-                path: "", 
+            {
+                path: "",
                 element: <HomePage />,
                 children: [
                     {
@@ -25,9 +26,10 @@ const router = createBrowserRouter([
                 ]
             },
             { path: "listar-produtos", element: <ListaDeProdutosPage /> },
-            { path: "login", element: <LoginPage /> },            
-            { path: "cadastrar-produto", element: <CadastroDeProdutosPage /> },            
-            { path: "carrinho", element: <CarrinhoPage /> },            
+            { path: "produtos/:id", element: <DetalhesDoProdutoPage /> },
+            { path: "login", element: <LoginPage /> },
+            { path: "cadastrar-produto", element: <CadastroDeProdutosPage /> },
+            { path: "carrinho", element: <CarrinhoPage /> },
         ]
     }
 ]);
