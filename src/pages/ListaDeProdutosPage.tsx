@@ -2,7 +2,7 @@ import CadastroDeProdutosForm from "../components/CadastroDeProdutosForm";
 import Paginacao from "../components/Paginacao";
 import Pesquisa from "../components/Pesquisa";
 import TabelaDeProdutos from "../components/TabelaDeProdutos";
-import useProdutoStore from "../util/produtoStore";
+import useProdutoStore from "../store/produtoStore";
 
 const ListaDeProdutosPage = () => {
   const produtoSelecionado = useProdutoStore((s) => s.produtoSelecionado);

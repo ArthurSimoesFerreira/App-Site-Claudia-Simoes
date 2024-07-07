@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import useProdutoPorId from "../hooks/useProdutoPorId";
 import useRemoverProduto from "../hooks/useRemoverProduto";
-import useProdutoStore from "../util/produtoStore";
+import useProdutoStore from "../store/produtoStore";
 
 const DetalhesDoProdutoPage = () => {
     const { id } = useParams<{ id: string }>();

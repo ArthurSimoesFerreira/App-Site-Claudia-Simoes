@@ -1,5 +1,5 @@
 import { FormEvent, useRef } from "react";
-import useProdutoStore from "../util/produtoStore";
+import useProdutoStore from "../store/produtoStore";
 
 const Pesquisa = () => {
   const nome = useProdutoStore(s => s.nome);
@@ -12,9 +12,9 @@ const Pesquisa = () => {
   }
 
   const submit = (event: FormEvent) => {
-    event.preventDefault(); 
+    event.preventDefault();
     tratarNome(nomeRef.current!.value);
-  }  
+  }
 
   const nomeRef = useRef<HTMLInputElement>(null);
 

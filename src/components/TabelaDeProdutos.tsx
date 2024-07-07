@@ -2,7 +2,7 @@
 import dayjs from "dayjs";
 import deleteIcon from "../assets/skin/database_delete.png";
 import useProdutosComPaginacao from "../hooks/useProdutosComPaginacao";
-import useProdutoStore from "../util/produtoStore";
+import useProdutoStore from "../store/produtoStore";
 import useRemoverProduto from "../hooks/useRemoverProduto";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 

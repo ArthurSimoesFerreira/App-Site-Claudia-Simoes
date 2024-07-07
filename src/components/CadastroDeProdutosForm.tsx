@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { z } from "zod";
 import dataValida from "../util/dataValida";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useProdutoStore from "../util/produtoStore";
+import useProdutoStore from "../store/produtoStore";
 import dayjs from "dayjs";
 import useAlterarProduto from "../hooks/useAlterarProduto";
 

@@ -1,6 +1,15 @@
+import LoginForm from "../components/LoginForm";
+
 const LoginPage = () => {
   return (
-    <div>LoginPage</div>
-  )
-}
-export default LoginPage
+    <>
+      <div className="mb-4">
+        <h5>Página de Login</h5>
+        <hr className="mt-0" />
+      </div>
+
+      <LoginForm />
+    </>
+  );
+};
+export default LoginPage;
