@@ -13,17 +13,6 @@ import useProdutoStore from "../util/produtoStore";
 import dayjs from "dayjs";
 import useAlterarProduto from "../hooks/useAlterarProduto";
 
-// interface FormProduto {
-//   nome: string;
-//   descricao: string;
-//   categoria: number;
-//   data_cadastro: string;
-//   preco: number;
-//   qtd_estoque: number;
-//   imagem: string;
-//   disponivel: boolean;
-// }
-
 const categoriaValida = (categoria: string) => {
   return categoria !== "0";
 };
@@ -71,14 +60,14 @@ const CadastroDeProdutosForm = () => {
   } = useForm<FormProduto>({ resolver: zodResolver(schema) });
 
   useEffect(() => {
-    setFocus("nome");
-    reset();
-    setProdutoSelecionado({} as Produto);
+    if (!produtoSelecionado.id) {
+      setFocus("nome");
+      reset();
+      setProdutoSelecionado({} as Produto);
+    }
   }, [isSubmitSuccessful]);
 
   useEffect(() => {
-    setFocus("nome");
-    reset();
     if (produtoSelecionado.id) {
       setValue("nome", produtoSelecionado.nome);
       setValue("descricao", produtoSelecionado.descricao);
@@ -88,8 +77,11 @@ const CadastroDeProdutosForm = () => {
       setValue("qtd_estoque", produtoSelecionado.qtdEstoque);
       setValue("imagem", produtoSelecionado.imagem);
       setValue("disponivel", produtoSelecionado.disponivel);
+    } else {
+      setFocus("nome");
+      reset();
     }
-  }, [produtoSelecionado]);
+  }, [produtoSelecionado, setFocus, reset, setValue]);
 
   const { mutate: cadastrarProduto, error: errorCadastrarProduto } = useCadastrarProduto();
   const { mutate: alterarProduto, error: errorAlterarProduto } = useAlterarProduto();
@@ -110,7 +102,7 @@ const CadastroDeProdutosForm = () => {
       imagem: imagem,
       categoria: { id: parseInt(categoria) } as Categoria,
       disponivel: disponivel,
-      dataCadastro: new Date( // DD/MM/AAAA   AAAA-MM-DD
+      dataCadastro: new Date(
         data_cadastro.substring(6, 10) +
         "-" +
         data_cadastro.substring(3, 5) +
@@ -128,7 +120,6 @@ const CadastroDeProdutosForm = () => {
     }
   };
 
-  // Isso faz com que a página de erro seja exibida
   if (errorCadastrarProduto) throw errorCadastrarProduto;
   if (errorAlterarProduto) throw errorAlterarProduto;
 
@@ -152,7 +143,6 @@ const CadastroDeProdutosForm = () => {
                 }
               />
               <div className="invalid-feedback">{errors.nome?.message}</div>
-              {/* {errors.nome && <p className="text-danger">{errors.nome.message}</p>} */}
             </div>
           </div>
         </div>
@@ -231,12 +221,11 @@ const CadastroDeProdutosForm = () => {
             <label htmlFor="preco" className="col-xl-2 fw-bold">
               Preço
             </label>
-            <div className="col-xl-10">
+            <div className="col-xl-4">
               <input
                 {...register("preco", { valueAsNumber: true })}
                 type="number"
                 step="0.01"
-                min="0"
                 id="preco"
                 className={
                   errors.preco
@@ -246,18 +235,13 @@ const CadastroDeProdutosForm = () => {
               />
               <div className="invalid-feedback">{errors.preco?.message}</div>
             </div>
-          </div>
-        </div>
-        <div className="col-xl-6">
-          <div className="row mb-2">
             <label htmlFor="qtd_estoque" className="col-xl-3 fw-bold">
-              Estoque
+              Qtd. Estoque
             </label>
-            <div className="col-xl-9">
+            <div className="col-xl-3">
               <input
                 {...register("qtd_estoque", { valueAsNumber: true })}
                 type="number"
-                min="0"
                 id="qtd_estoque"
                 className={
                   errors.qtd_estoque
@@ -269,15 +253,12 @@ const CadastroDeProdutosForm = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="row mb-1">
         <div className="col-xl-6">
           <div className="row mb-2">
-            <label htmlFor="imagem" className="col-xl-2 fw-bold">
+            <label htmlFor="imagem" className="col-xl-3 fw-bold">
               Imagem
             </label>
-            <div className="col-xl-10">
+            <div className="col-xl-6">
               <input
                 {...register("imagem")}
                 type="text"
@@ -290,62 +271,52 @@ const CadastroDeProdutosForm = () => {
               />
               <div className="invalid-feedback">{errors.imagem?.message}</div>
             </div>
-          </div>
-        </div>
-        <div className="col-xl-6">
-          <div className="row mb-2">
-            <div className="offset-xl-3 col-xl-9">
-              <div className="form-check pl-0 mt-xl-0 mt-2">
-                <input
-                  {...register("disponivel")}
-                  type="checkbox"
-                  id="disponivel"
-                  className="form-check-input"
-                />
-                <label htmlFor="disponivel" className="form-check-label">
-                  Disponível?
-                </label>
-              </div>
+            <div className="col-xl-3">
+              <input
+                {...register("disponivel")}
+                type="checkbox"
+                id="disponivel"
+                className="form-check-input"
+              />
+              <label htmlFor="disponivel" className="form-check-label fw-bold">
+                Disponível
+              </label>
             </div>
           </div>
         </div>
       </div>
-
-      {/*
-       Aqui entra o restante do form
-      */}
-
-      <div className="row mb-5">
-        <div className="col-xl-6">
-          <div className="row">
-            <div className="col-xl-10 offset-xl-2 d-flex">
-              <button
-                style={{ minWidth: "100px" }}
-                id="botao"
-                type="submit"
-                className="btn btn-primary btn-sm d-flex align-items-center me-2"
-              >
-                {produtoSelecionado.id ? (
-                  <>
-                    <img src={databaseEdit} className="me-1" /> Alterar
-                  </>
-                ) : (
-                  <>
-                    <img src={databaseAdd} className="me-1" /> Cadastrar
-                  </>
-                )}
-              </button>
-              <button className="btn btn-primary btn-sm d-flex align-items-center " onClick={() => {
+      <hr className="mt-2" />
+      <div className="row mb-1">
+        <div className="col-xl-12">
+          <div className="d-flex justify-content-end">
+            <button
+              type="submit"
+              className="btn btn-outline-primary btn-sm fw-bold"
+            >
+              <img
+                src={produtoSelecionado.id ? databaseEdit : databaseAdd}
+                alt=""
+                width="18"
+                className="me-1"
+              />
+              {produtoSelecionado.id ? "Alterar" : "Cadastrar"}
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-warning btn-sm fw-bold ms-2"
+              onClick={() => {
                 reset();
                 setProdutoSelecionado({} as Produto);
-              }} type="button">
-                <img src={databaseCancel} className="me-1" /> Cancelar
-              </button>
-            </div>
+              }}
+            >
+              <img src={databaseCancel} alt="" width="18" className="me-1" />
+              Cancelar
+            </button>
           </div>
         </div>
       </div>
     </form>
   );
 };
+
 export default CadastroDeProdutosForm;
