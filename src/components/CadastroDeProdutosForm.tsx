@@ -65,7 +65,7 @@ const CadastroDeProdutosForm = () => {
       reset();
       setProdutoSelecionado({} as Produto);
     }
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, produtoSelecionado.id, reset, setFocus, setProdutoSelecionado]);
 
   useEffect(() => {
     if (produtoSelecionado.id) {
