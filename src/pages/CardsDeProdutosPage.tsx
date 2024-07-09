@@ -15,10 +15,9 @@ const CardsDeProdutosPage = () => {
 
   return (
     <>
-      <h5 className="d-flex justify-content-center align-items-center">{slug ? slug.charAt(0).toUpperCase() + slug.slice(1) : "Produtos"}</h5>
       <div className="row">
         {produtos?.map((produto) => (
-          <div className="col-lg-6 col-md-6 col-sm-6 col-6" key={produto.id}>
+          <div className="col-lg-4 col-md-6 col-sm-12 col-12" key={produto.id}>
             <Card produto={produto} />
           </div>
         ))}

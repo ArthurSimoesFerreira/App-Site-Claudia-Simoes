@@ -2,25 +2,24 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const HomePage = () => {
   return (
-    <div className="row">
-      <div className="col-lg-2">
-        <h5>Categorias</h5>
-        <div className="nav flex-column nav-pills border">
-          <NavLink aria-current="page" className="nav-link" to="/">
+    <div className="col">
+      <div className="row-lg-2 mb-3 border px-2 rounded">
+        <div className="nav nav-pills row">
+          <NavLink aria-current="page" className="nav-link col-3 justify-content-center align-items-center d-flex fw-bold" to="/">
             Todos
           </NavLink>
-          <NavLink aria-current="page" className="nav-link" to="/top">
+          <NavLink aria-current="page" className="nav-link col-3 justify-content-center align-items-center d-flex fw-bold" to="/top">
             Tops
           </NavLink>
-          <NavLink aria-current="page" className="nav-link" to="/legging">
+          <NavLink aria-current="page" className="nav-link col-3 justify-content-center align-items-center d-flex fw-bold" to="/legging">
             Leggings
           </NavLink>
-          <NavLink aria-current="page" className="nav-link" to="/camisa">
+          <NavLink aria-current="page" className="nav-link col-3 justify-content-center align-items-center d-flex fw-bold" to="/camisa">
             Camisas
           </NavLink>
         </div>
       </div>
-      <div className="col-lg-10">
+      <div className="row-lg-10">
         <Outlet />
       </div>
     </div>

@@ -18,13 +18,13 @@ const Card = ({ produto }: Props) => {
   return (
     <div className="card mb-3" style={{ maxWidth: "540px", minHeight: "300px" }}>
       <div className="row g-0" style={{ minHeight: "300px", maxHeight: "300px" }}>
-        <div className="col-md-6">
+        <div className="col-6">
           <img src={imagem} className="img-fluid rounded-start h-100" style={{ maxHeight: "300px" }} alt={titulo} />
         </div>
-        <div className="col-md-6 h-100">
+        <div className="col-6 h-100">
           <div className="card-body">
             <Link to={`/produtos/${id}`} style={{ textDecoration: "none" }}>
-              <h5 className="card-title">{titulo}</h5>
+              <h5 className="card-title" style={{ color: "#d9094a" }}>{titulo}</h5>
             </Link>
             <p className="card-text">{descricao}</p>
             <p className="card-text fw-bold" style={{ color: "rgb(220, 53, 69)" }}>
@@ -34,7 +34,7 @@ const Card = ({ produto }: Props) => {
                 useGrouping: true
               })}
             </p>
-            <div className="card-footer border-0 p-0">
+            <div className="card-footer border-0 p-0" style={{ backgroundColor: "white" }}>
               {produtoNoCarrinho ? (
                 <div className="d-flex justify-content-between align-items-center">
                   <button onClick={() => atualizarQuantidade(id, -1)} className="btn btn-danger">-</button>
@@ -42,7 +42,7 @@ const Card = ({ produto }: Props) => {
                   <button onClick={() => adicionarProduto(produto)} className="btn btn-primary">+</button>
                 </div>
               ) : (
-                <button onClick={() => adicionarProduto(produto)} className="btn btn-primary">Adicionar ao Carrinho</button>
+                <button onClick={() => adicionarProduto(produto)} className="btn btn-primary" style={{ backgroundColor: "#d9094a", borderColor: "#d9094a" }}>Adicionar ao Carrinho</button>
               )}
             </div>
           </div>
