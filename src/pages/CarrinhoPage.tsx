@@ -1,4 +1,12 @@
+import TabelaDoCarrinho from "../components/TabelaDoCarrinho";
+
 const CarrinhoPage = () => {
-  return <div>CarrinhoPage</div>;
+  return (
+    <>
+      <h4>Meu Carrinho</h4>
+      <TabelaDoCarrinho />
+    </>
+  );
 };
+
 export default CarrinhoPage;
