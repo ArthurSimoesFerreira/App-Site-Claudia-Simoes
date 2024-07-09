@@ -1,36 +1,32 @@
 import { useParams, useNavigate } from "react-router-dom";
 import useProdutoPorId from "../hooks/useProdutoPorId";
 import useRemoverProdutoDoCarrinho from "../hooks/useRemoverProdutoDoCarrinho";
-import useCarrinhoStore from "../store/carrinhoStore";
 import useAdicionarProdutoAoCarrinho from "../hooks/useAdicionarProdutoAoCarrinho";
 import useDiminuirProdutoDoCarrinho from "../hooks/useDiminuirProdutoDoCarrinho";
+import useCarrinho from "../hooks/useCarrinho";
 
 const DetalhesDoProdutoPage = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { data: produto, error, isPending } = useProdutoPorId(Number(id));
-    const { adicionarProduto, atualizarQuantidade, removerProduto } = useCarrinhoStore();
     const { mutate: removerProdutoDoCarrinho } = useRemoverProdutoDoCarrinho();
     const { mutate: adicionarProdutoAoCarrinho } = useAdicionarProdutoAoCarrinho();
     const { mutate: diminuirProdutoDoCarrinho } = useDiminuirProdutoDoCarrinho();
-    const produtoNoCarrinho = useCarrinhoStore((s) =>
-        s.produtos.find((p) => p.produto.id === Number(id))
-    );
+    const { data: carrinho } = useCarrinho();
+
+    const produtoNoCarrinho = carrinho?.find((p) => p.produto.id === Number(id));
 
     if (isPending) return <h6>Carregando...</h6>;
     if (error) throw error;
 
     const handleAdicionarProduto = () => {
-        adicionarProduto(produto, 1);
         adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
     };
 
     const handleDiminuirProduto = () => {
         if (produtoNoCarrinho && produtoNoCarrinho.quantidade > 1) {
-            atualizarQuantidade(produto.id!, -1);
             diminuirProdutoDoCarrinho(produto.id!);
         } else if (produtoNoCarrinho) {
-            removerProduto(produto.id!);
             removerProdutoDoCarrinho(produto.id!);
         }
     };
@@ -38,7 +34,7 @@ const DetalhesDoProdutoPage = () => {
     return (
         <div className="row">
             <div className="col-12 col-md-6 d-flex justify-content-center">
-                <img src={`/${produto.imagem}`} alt={produto.nome} className="img-fluid  border border-dark" />
+                <img src={`/${produto.imagem}`} alt={produto.nome} className="img-fluid border border-dark" />
             </div>
             <div className="col-12 col-md-6 d-flex flex-column align-items-center">
                 <h1 className="text-center">{produto.nome}</h1>

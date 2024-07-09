@@ -1,36 +1,29 @@
 import { Link } from "react-router-dom";
 import Produto from "../interfaces/produto";
 import useAdicionarProdutoAoCarrinho from "../hooks/useAdicionarProdutoAoCarrinho";
-import useCarrinhoStore from "../store/carrinhoStore";
 import useDiminuirProdutoDoCarrinho from "../hooks/useDiminuirProdutoDoCarrinho";
 import useRemoverProdutoDoCarrinho from "../hooks/useRemoverProdutoDoCarrinho";
+import Carrinho from "../interfaces/carrinho";
 
 interface Props {
   produto: Produto;
+  produtoNoCarrinho?: Carrinho;
 }
 
-const Card = ({ produto }: Props) => {
+const Card = ({ produto, produtoNoCarrinho }: Props) => {
   const { id, imagem, nome: titulo, descricao, preco } = produto;
-  const { produtos, adicionarProduto, atualizarQuantidade, removerProduto } = useCarrinhoStore();
-  const produtoNoCarrinho = useCarrinhoStore((s) =>
-    s.produtos.find((p) => p.produto.id === id)
-  );
   const { mutate: adicionarProdutoAoCarrinho } = useAdicionarProdutoAoCarrinho();
   const { mutate: diminuirProdutoDoCarrinho } = useDiminuirProdutoDoCarrinho();
   const { mutate: removerProdutoDoCarrinho } = useRemoverProdutoDoCarrinho();
 
   const handleAdicionarProduto = () => {
-    adicionarProduto(produto, 1);
     adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
-  }
+  };
 
-  const handleDiminuirProduto = (produto: Produto) => {
-    const produtoNoCarrinho = produtos.find(p => p.produto.id === produto.id);
+  const handleDiminuirProduto = () => {
     if (produtoNoCarrinho && produtoNoCarrinho.quantidade > 1) {
-      atualizarQuantidade(produto.id!, -1);
       diminuirProdutoDoCarrinho(produto.id!);
     } else {
-      removerProduto(produto.id!);
       removerProdutoDoCarrinho(produto.id!);
     }
   };
@@ -57,12 +50,12 @@ const Card = ({ produto }: Props) => {
             <div className="card-footer border-0 p-0" style={{ backgroundColor: "white" }}>
               {produtoNoCarrinho ? (
                 <div className="d-flex justify-content-between align-items-center">
-                  <button onClick={() => handleDiminuirProduto(produto)} className="btn btn-danger">-</button>
+                  <button onClick={handleDiminuirProduto} className="btn btn-danger">-</button>
                   <span className="px-3">{produtoNoCarrinho.quantidade}</span>
-                  <button onClick={() => handleAdicionarProduto()} className="btn btn-primary">+</button>
+                  <button onClick={handleAdicionarProduto} className="btn btn-primary">+</button>
                 </div>
               ) : (
-                <button onClick={() => handleAdicionarProduto()} className="btn btn-primary" style={{ backgroundColor: "#d9094a", borderColor: "#d9094a" }}>Adicionar ao Carrinho</button>
+                <button onClick={handleAdicionarProduto} className="btn btn-primary" style={{ backgroundColor: "#d9094a", borderColor: "#d9094a" }}>Adicionar ao Carrinho</button>
               )}
             </div>
           </div>
