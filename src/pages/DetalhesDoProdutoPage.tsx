@@ -1,36 +1,38 @@
 import { useParams, useNavigate } from "react-router-dom";
 import useProdutoPorId from "../hooks/useProdutoPorId";
-import useRemoverProduto from "../hooks/useRemoverProduto";
-import useProdutoStore from "../store/produtoStore";
+import useRemoverProdutoDoCarrinho from "../hooks/useRemoverProdutoDoCarrinho";
 import useCarrinhoStore from "../store/carrinhoStore";
+import useAdicionarProdutoAoCarrinho from "../hooks/useAdicionarProdutoAoCarrinho";
+import useDiminuirProdutoDoCarrinho from "../hooks/useDiminuirProdutoDoCarrinho";
 
 const DetalhesDoProdutoPage = () => {
-
-
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { data: produto, error, isPending } = useProdutoPorId(Number(id));
-    const { mutate: removerProduto } = useRemoverProduto();
-    const setProdutoSelecionado = useProdutoStore((s) => s.setProdutoSelecionado);
-    const adicionarProduto = useCarrinhoStore((s) => s.adicionarProduto);
-    const atualizarQuantidade = useCarrinhoStore((s) => s.atualizarQuantidade);
+    const { adicionarProduto, atualizarQuantidade, removerProduto } = useCarrinhoStore();
+    const { mutate: removerProdutoDoCarrinho } = useRemoverProdutoDoCarrinho();
+    const { mutate: adicionarProdutoAoCarrinho } = useAdicionarProdutoAoCarrinho();
+    const { mutate: diminuirProdutoDoCarrinho } = useDiminuirProdutoDoCarrinho();
     const produtoNoCarrinho = useCarrinhoStore((s) =>
         s.produtos.find((p) => p.produto.id === Number(id))
     );
-    console.log("produtocarrinho: " + produtoNoCarrinho);
-
 
     if (isPending) return <h6>Carregando...</h6>;
     if (error) throw error;
 
-    const handleRemove = () => {
-        removerProduto(Number(id));
-        navigate("/listar-produtos");
+    const handleAdicionarProduto = () => {
+        adicionarProduto(produto, 1);
+        adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
     };
 
-    const handleEdit = () => {
-        setProdutoSelecionado(produto);
-        navigate("/listar-produtos");
+    const handleDiminuirProduto = () => {
+        if (produtoNoCarrinho && produtoNoCarrinho.quantidade > 1) {
+            atualizarQuantidade(produto.id!, -1);
+            diminuirProdutoDoCarrinho(produto.id!);
+        } else if (produtoNoCarrinho) {
+            removerProduto(produto.id!);
+            removerProdutoDoCarrinho(produto.id!);
+        }
     };
 
     return (
@@ -43,16 +45,14 @@ const DetalhesDoProdutoPage = () => {
                 <p>{produto.descricao}</p>
                 <p>Preço: R$ {produto.preco.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                 <div className="d-grid gap-2 w-100">
-                    <button onClick={handleEdit} className="btn btn-warning">Editar</button>
-                    <button onClick={handleRemove} className="btn btn-danger">Remover</button>
                     {produtoNoCarrinho ? (
                         <div className="d-flex justify-content-between align-items-center">
-                            <button onClick={() => atualizarQuantidade(Number(id), -1)} className="btn btn-danger">-</button>
+                            <button onClick={handleDiminuirProduto} className="btn btn-danger">-</button>
                             <span className="px-3">{produtoNoCarrinho.quantidade}</span>
-                            <button onClick={() => atualizarQuantidade(Number(id), +1)} className="btn btn-primary">+</button>
+                            <button onClick={handleAdicionarProduto} className="btn btn-primary">+</button>
                         </div>
                     ) : (
-                        <button onClick={() => adicionarProduto(produto)} className="btn btn-primary">Adicionar ao Carrinho</button>
+                        <button onClick={handleAdicionarProduto} className="btn btn-primary">Adicionar ao Carrinho</button>
                     )}
                 </div>
             </div>

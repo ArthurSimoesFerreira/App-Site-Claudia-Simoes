@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import useProdutosPorSlugDaCategoria from "../hooks/useProdutosPorSlugDaCategoria";
 import Card from "../components/Card";
+import useCarrinho from "../hooks/useCarrinho";
 
 const CardsDeProdutosPage = () => {
   const { slug } = useParams();

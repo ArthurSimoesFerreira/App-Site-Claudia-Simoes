@@ -1,7 +1,9 @@
-import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import useCarrinhoStore from "../store/carrinhoStore";
 import Produto from "../interfaces/produto";
+import useAdicionarProdutoAoCarrinho from "../hooks/useAdicionarProdutoAoCarrinho";
+import useCarrinhoStore from "../store/carrinhoStore";
+import useDiminuirProdutoDoCarrinho from "../hooks/useDiminuirProdutoDoCarrinho";
+import useRemoverProdutoDoCarrinho from "../hooks/useRemoverProdutoDoCarrinho";
 
 interface Props {
   produto: Produto;
@@ -9,11 +11,29 @@ interface Props {
 
 const Card = ({ produto }: Props) => {
   const { id, imagem, nome: titulo, descricao, preco } = produto;
-  const adicionarProduto = useCarrinhoStore((s) => s.adicionarProduto);
-  const atualizarQuantidade = useCarrinhoStore((s) => s.atualizarQuantidade);
+  const { produtos, adicionarProduto, atualizarQuantidade, removerProduto } = useCarrinhoStore();
   const produtoNoCarrinho = useCarrinhoStore((s) =>
     s.produtos.find((p) => p.produto.id === id)
   );
+  const { mutate: adicionarProdutoAoCarrinho } = useAdicionarProdutoAoCarrinho();
+  const { mutate: diminuirProdutoDoCarrinho } = useDiminuirProdutoDoCarrinho();
+  const { mutate: removerProdutoDoCarrinho } = useRemoverProdutoDoCarrinho();
+
+  const handleAdicionarProduto = () => {
+    adicionarProduto(produto, 1);
+    adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
+  }
+
+  const handleDiminuirProduto = (produto: Produto) => {
+    const produtoNoCarrinho = produtos.find(p => p.produto.id === produto.id);
+    if (produtoNoCarrinho && produtoNoCarrinho.quantidade > 1) {
+      atualizarQuantidade(produto.id!, -1);
+      diminuirProdutoDoCarrinho(produto.id!);
+    } else {
+      removerProduto(produto.id!);
+      removerProdutoDoCarrinho(produto.id!);
+    }
+  };
 
   return (
     <div className="card mb-3" style={{ maxWidth: "540px", minHeight: "300px" }}>
@@ -37,12 +57,12 @@ const Card = ({ produto }: Props) => {
             <div className="card-footer border-0 p-0" style={{ backgroundColor: "white" }}>
               {produtoNoCarrinho ? (
                 <div className="d-flex justify-content-between align-items-center">
-                  <button onClick={() => atualizarQuantidade(id, -1)} className="btn btn-danger">-</button>
+                  <button onClick={() => handleDiminuirProduto(produto)} className="btn btn-danger">-</button>
                   <span className="px-3">{produtoNoCarrinho.quantidade}</span>
-                  <button onClick={() => adicionarProduto(produto)} className="btn btn-primary">+</button>
+                  <button onClick={() => handleAdicionarProduto()} className="btn btn-primary">+</button>
                 </div>
               ) : (
-                <button onClick={() => adicionarProduto(produto)} className="btn btn-primary" style={{ backgroundColor: "#d9094a", borderColor: "#d9094a" }}>Adicionar ao Carrinho</button>
+                <button onClick={() => handleAdicionarProduto()} className="btn btn-primary" style={{ backgroundColor: "#d9094a", borderColor: "#d9094a" }}>Adicionar ao Carrinho</button>
               )}
             </div>
           </div>

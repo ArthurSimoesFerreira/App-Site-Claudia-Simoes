@@ -1,50 +1,46 @@
-import { create } from "zustand";
-import Produto from "../interfaces/produto";
+import { create } from 'zustand';
+import Produto from '../interfaces/produto';
 
 interface ProdutoCarrinho {
     produto: Produto;
     quantidade: number;
 }
 
-interface CarrinhoState {
+interface CarrinhoStore {
     produtos: ProdutoCarrinho[];
-    adicionarProduto: (produto: Produto) => void;
-    removerProduto: (produtoId: number | undefined) => void;
-    atualizarQuantidade: (produtoId: number | undefined, quantidade: number) => void;
+    adicionarProduto: (produto: Produto, quantidade: number) => void;
+    removerProduto: (produtoId: number) => void;
+    atualizarQuantidade: (produtoId: number, quantidade: number) => void;
     limparCarrinho: () => void;
 }
 
-const useCarrinhoStore = create<CarrinhoState>((set) => ({
+const useCarrinhoStore = create<CarrinhoStore>((set) => ({
     produtos: [],
-    adicionarProduto: (produto) =>
-        set((state) => {
-            const existente = state.produtos.find((p) => p.produto.id === produto.id);
-            if (existente) {
-                return {
-                    produtos: state.produtos.map((p) =>
-                        p.produto.id === produto.id
-                            ? { ...p, quantidade: p.quantidade + 1 }
-                            : p
-                    ),
-                };
-            } else {
-                return { produtos: [...state.produtos, { produto, quantidade: 1 }] };
-            }
-        }),
-    removerProduto: (produtoId) =>
-        set((state) => ({
-            produtos: state.produtos.filter((p) => p.produto.id !== produtoId),
-        })),
-    atualizarQuantidade: (produtoId, quantidade) =>
-        set((state) => {
-            const produtosAtualizados = state.produtos.map((p) =>
-                p.produto.id === produtoId
-                    ? { ...p, quantidade: p.quantidade + quantidade }
-                    : p
-            ).filter((p) => p.quantidade > 0);
-            return { produtos: produtosAtualizados };
-        }),
-    limparCarrinho: () => set({ produtos: [] })
+    adicionarProduto: (produto, quantidade) => set((state) => {
+        const produtoExistente = state.produtos.find(p => p.produto.id === produto.id);
+        if (produtoExistente) {
+            return {
+                produtos: state.produtos.map(p =>
+                    p.produto.id === produto.id ? { ...p, quantidade: p.quantidade + quantidade } : p
+                )
+            };
+        } else {
+            return {
+                produtos: [...state.produtos, { produto, quantidade }]
+            };
+        }
+    }),
+    removerProduto: (produtoId) => set((state) => ({
+        produtos: state.produtos.filter(p => p.produto.id !== produtoId)
+    })),
+    atualizarQuantidade: (produtoId, quantidade) => set((state) => ({
+        produtos: state.produtos.map(p =>
+            p.produto.id === produtoId ? { ...p, quantidade } : p
+        ).filter(p => p.quantidade > 0)
+    })),
+    limparCarrinho: () => set(() => ({
+        produtos: []
+    }))
 }));
 
 export default useCarrinhoStore;
