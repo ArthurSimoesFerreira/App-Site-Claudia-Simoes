@@ -8,6 +8,7 @@ import ListaDeProdutosPage from '../pages/ListaDeProdutosPage';
 import ErrorPage from '../pages/ErrorPage';
 import CardsDeProdutosPage from '../pages/CardsDeProdutosPage';
 import PrivateRoutes from './PrivateRoutes';
+import DetalhesDoProdutoPage from '../pages/DetalhesDoProdutoPage';
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
                 ],
             },
             { path: "login", element: <LoginPage /> },
+            { path: "/produtos/:id", element: <DetalhesDoProdutoPage /> }
         ],
     },
     {
