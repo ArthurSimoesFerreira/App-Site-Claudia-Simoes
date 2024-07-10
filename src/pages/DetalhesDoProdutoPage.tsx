@@ -49,17 +49,22 @@ const DetalhesDoProdutoPage = () => {
     };
 
     return (
-        <div className="row">
+        <div className="row mb-3">
             <div className="col-12 col-md-6 d-flex justify-content-center">
-                <img src={`/${produto.imagem}`} alt={produto.nome} className="img-fluid border border-dark" />
+                <img src={`/${produto.imagem}`} alt={produto.nome} className="img-fluid border border-4 rounded border-danger" />
             </div>
-            <div className="col-12 col-md-6 d-flex flex-column align-items-center">
+            <div className="col-12 col-md-6 d-flex flex-column align-items-center fs-5 border-start border-4 border-danger">
                 <h1 className="text-center">{produto.nome}</h1>
                 <p>{produto.descricao}</p>
                 <p>Preço: R$ {produto.preco.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                <p>Unidades Disponíveis: {produto.qtdEstoque}</p>
+                <p>Categoria: {produto.categoria.nome}</p>
                 <div className="mb-3">
                     {produtoNoCarrinho ? (
                         <div className="d-flex justify-content-between align-items-center">
+                            <div className="fw-bolder">
+                                Quantidade:
+                            </div>
                             <button onClick={handleDiminuirProduto} className="btn"><svg id="i-arrow-bottom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                                 <path d="M6 22 L16 30 26 22 M16 30 L16 2" />
                             </svg></button>
@@ -69,12 +74,12 @@ const DetalhesDoProdutoPage = () => {
                             </svg></button>
                         </div>
                     ) : (
-                        <button onClick={handleAdicionarProduto} className="btn btn-primary">Adicionar ao Carrinho</button>
+                        <button onClick={handleAdicionarProduto} className="btn btn-primary btn-lg" style={{ backgroundColor: "#d9094a", borderColor: "black" }}>Adicionar ao Carrinho</button>
                     )}
                 </div>
-                <div className="d-grid gap-2 w-100">
-                    <button onClick={handleEdit} className="btn btn-warning">Editar</button>
-                    <button onClick={handleRemove} className="btn btn-danger">Remover</button>
+                <div className="row gap-4">
+                    <button onClick={handleEdit} className="col btn btn-warning">Editar</button>
+                    <button onClick={handleRemove} className="col btn btn-danger">Remover</button>
                 </div>
             </div>
         </div>
