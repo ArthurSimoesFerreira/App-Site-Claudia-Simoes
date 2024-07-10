@@ -37,12 +37,12 @@ function NavBar() {
           <div className="justify-content-around col-8 row align-items-center fw-bold">
             <div className="col d-flex justify-content-center align-items-center">
               <Link to="/listar-produtos" style={{ textDecoration: "none", color: "black" }}>
-                Listar produtos
+                LISTAR PRODUTOS
               </Link>
             </div>
             <div className="col d-flex justify-content-center align-items-center">
               <Link to="/cadastrar-produto" style={{ textDecoration: "none", color: "black" }}>
-                Cadastrar produto
+                CADASTRAR PRODUTO
               </Link>
             </div>
           </div>

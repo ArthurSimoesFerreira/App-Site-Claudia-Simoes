@@ -34,10 +34,10 @@ const Card = ({ produto, produtoNoCarrinho }: Props) => {
   };
 
   return (
-    <div className="card mb-3" style={{ maxWidth: "540px", minHeight: "300px" }}>
-      <div className="row g-0" style={{ minHeight: "300px", maxHeight: "300px" }}>
+    <div className="card mb-3" style={{ width: "540px", height: "310px" }}>
+      <div className="row g-0" style={{ height: "100%" }}>
         <div className="col-6">
-          <img src={imagem} className="img-fluid rounded-start h-100" style={{ maxHeight: "300px", width: "90%" }} alt={titulo} />
+          <img src={imagem} className="img-fluid rounded-start h-100" style={{ width: "90%" }} alt={titulo} />
         </div>
         <div className="col-6 h-100">
           <div className="card-body">

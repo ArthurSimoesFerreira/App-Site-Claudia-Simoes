@@ -27,7 +27,8 @@ const router = createBrowserRouter([
                 ],
             },
             { path: "login", element: <LoginPage /> },
-            { path: "/produtos/:id", element: <DetalhesDoProdutoPage /> }
+            { path: "/produtos/:id", element: <DetalhesDoProdutoPage /> },
+            { path: "carrinho", element: <CarrinhoPage /> },
         ],
     },
     {
@@ -37,7 +38,6 @@ const router = createBrowserRouter([
         children: [
             { path: "listar-produtos", element: <ListaDeProdutosPage /> },
             { path: "cadastrar-produto", element: <CadastroDeProdutosPage /> },
-            { path: "carrinho", element: <CarrinhoPage /> },
         ],
     },
 ]);
