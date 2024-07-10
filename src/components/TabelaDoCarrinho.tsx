@@ -34,7 +34,7 @@ const TabelaDoCarrinho = ({ carrinho }: Props) => {
     };
 
     const handleRemoverProduto = (produtoId: number) => {
-        removerProduto(produtoId);
+        removerProdutoDoCarrinho(produtoId);
     };
 
     return (

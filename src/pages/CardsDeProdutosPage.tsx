@@ -29,10 +29,10 @@ const CardsDeProdutosPage = () => {
       loader={<h6>Carregando...</h6>}>
 
       <h5 className="d-flex justify-content-center fw-bolder fs-3 m-3" style={{ color: "#d9094a" }}>{slug ? slug.charAt(0).toUpperCase() + slug.slice(1).toUpperCase() + "S" : "PRODUTOS"}</h5>
-      <div className="row">
+      <div className="row justify-content-center">
         {data.pages.map((page) =>
           page.itens.map((produto) => (produto.disponivel === true ?
-            <div key={produto.id} className="col-lg-4 col-md-6 col-sm-12 col-12">
+            <div key={produto.id} className="col-lg-6 col-md-6 col-sm-12 col-12">
               <Card
                 produto={produto} produtoNoCarrinho={carrinho?.find((p) => p.produto.id === produto.id)}
               />

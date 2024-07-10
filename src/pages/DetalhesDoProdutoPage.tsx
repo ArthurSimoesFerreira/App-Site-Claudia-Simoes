@@ -40,6 +40,7 @@ const DetalhesDoProdutoPage = () => {
     };
 
     const handleRemove = () => {
+        removerProdutoDoCarrinho(produto.id!);
         removerProduto(produto.id!);
         navigate("/");
     };
@@ -49,13 +50,13 @@ const DetalhesDoProdutoPage = () => {
     };
 
     return (
-        <div className="row mb-3">
-            <div className="col-12 col-md-6 d-flex justify-content-center">
-                <img src={`/${produto.imagem}`} alt={produto.nome} className="img-fluid border border-4 rounded border-danger" />
+        <div className="row mb-1">
+            <div className="col-12 col-md-5 d-flex justify-content-center">
+                <img src={`/${produto.imagem}`} alt={produto.nome} className="img-fluid shadow-lg mb-2 bg-body-tertiary rounded" />
             </div>
-            <div className="col-12 col-md-6 d-flex flex-column align-items-center fs-5 border-start border-4 border-danger">
+            <div className="col-12 col-md-7 d-flex flex-column align-items-center fs-5 border-start border-4 border-danger">
                 <h1 className="text-center">{produto.nome}</h1>
-                <p>{produto.descricao}</p>
+                <p className="text-center">{produto.descricao}</p>
                 <p>Preço: R$ {produto.preco.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                 <p>Unidades Disponíveis: {produto.qtdEstoque}</p>
                 <p>Categoria: {produto.categoria.nome}</p>

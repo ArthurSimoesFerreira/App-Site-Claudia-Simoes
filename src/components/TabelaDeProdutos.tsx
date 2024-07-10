@@ -5,6 +5,7 @@ import useProdutosComPaginacao from "../hooks/useProdutosComPaginacao";
 import useProdutoStore from "../store/produtoStore";
 import useRemoverProduto from "../hooks/useRemoverProduto";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+import useRemoverProdutoDoCarrinho from "../hooks/useRemoverProdutoDoCarrinho";
 
 const TabelaDeProdutos = () => {
   const pagina = useProdutoStore(s => s.pagina);
@@ -18,8 +19,10 @@ const TabelaDeProdutos = () => {
   const setOrdenacaoDirecao = useProdutoStore(s => s.setOrdenacaoDirecao);
 
   const { mutate: removerProduto } = useRemoverProduto();
+  const { mutate: removerProdutoDoCarrinho } = useRemoverProdutoDoCarrinho();
 
   const tratarRemocao = (id: number) => {
+    removerProdutoDoCarrinho(id);
     removerProduto(id);
     setPagina(0);
   }
