@@ -3,6 +3,7 @@ import useRemoverProdutoDoCarrinho from "../hooks/useRemoverProdutoDoCarrinho";
 import useDiminuirProdutoDoCarrinho from "../hooks/useDiminuirProdutoDoCarrinho";
 import Produto from "../interfaces/produto";
 import Carrinho from "../interfaces/carrinho";
+import useRemoverProduto from "../hooks/useRemoverProduto";
 
 interface Props {
     carrinho: Carrinho[];
@@ -12,6 +13,7 @@ const TabelaDoCarrinho = ({ carrinho }: Props) => {
     const { mutate: adicionarProdutoAoCarrinho } = useAdicionarProdutoAoCarrinho();
     const { mutate: removerProdutoDoCarrinho } = useRemoverProdutoDoCarrinho();
     const { mutate: diminuirProdutoDoCarrinho } = useDiminuirProdutoDoCarrinho();
+    const { mutate: removerProduto } = useRemoverProduto();
     const total = carrinho?.reduce((acc, p) => acc + p.produto.preco * p.quantidade, 0).toFixed(2);
 
     const handleAdicionarProduto = (produto: Produto) => {
@@ -28,7 +30,7 @@ const TabelaDoCarrinho = ({ carrinho }: Props) => {
     };
 
     const handleRemoverProduto = (produtoId: number) => {
-        removerProdutoDoCarrinho(produtoId);
+        removerProduto(produtoId);
     };
 
     return (
