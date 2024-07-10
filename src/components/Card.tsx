@@ -50,9 +50,13 @@ const Card = ({ produto, produtoNoCarrinho }: Props) => {
             <div className="card-footer border-0 p-0" style={{ backgroundColor: "white" }}>
               {produtoNoCarrinho ? (
                 <div className="d-flex justify-content-between align-items-center">
-                  <button onClick={handleDiminuirProduto} className="btn btn-danger">-</button>
+                  <button onClick={handleDiminuirProduto} className="btn"><svg id="i-arrow-bottom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M6 22 L16 30 26 22 M16 30 L16 2" />
+                  </svg></button>
                   <span className="px-3">{produtoNoCarrinho.quantidade}</span>
-                  <button onClick={handleAdicionarProduto} className="btn btn-primary">+</button>
+                  <button onClick={handleAdicionarProduto} className="btn"><svg id="i-arrow-top" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M6 10 L16 2 26 10 M16 2 L16 30" />
+                  </svg></button>
                 </div>
               ) : (
                 <button onClick={handleAdicionarProduto} className="btn btn-primary" style={{ backgroundColor: "#d9094a", borderColor: "#d9094a" }}>Adicionar ao Carrinho</button>

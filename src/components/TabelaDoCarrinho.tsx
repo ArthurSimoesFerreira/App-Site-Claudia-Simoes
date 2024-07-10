@@ -1,4 +1,3 @@
-import useCarrinho from "../hooks/useCarrinho";
 import useAdicionarProdutoAoCarrinho from "../hooks/useAdicionarProdutoAoCarrinho";
 import useRemoverProdutoDoCarrinho from "../hooks/useRemoverProdutoDoCarrinho";
 import useDiminuirProdutoDoCarrinho from "../hooks/useDiminuirProdutoDoCarrinho";
@@ -28,12 +27,15 @@ const TabelaDoCarrinho = ({ carrinho }: Props) => {
         }
     };
 
+    const handleRemoverProduto = (produtoId: number) => {
+        removerProdutoDoCarrinho(produtoId);
+    };
+
     return (
         <>
             {carrinho?.length ? (
                 <>
-                    <h2 className="text-center mb-4">Carrinho de Compras</h2>
-                    <table className="table table-bordered text-center">
+                    <table className="table text-center align-middle">
                         <thead>
                             <tr>
                                 <th>Produto</th>
@@ -41,7 +43,7 @@ const TabelaDoCarrinho = ({ carrinho }: Props) => {
                                 <th>Preço</th>
                                 <th>Quantidade</th>
                                 <th>Total</th>
-                                <th>Ações</th>
+                                <th>Excluir</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,17 +54,26 @@ const TabelaDoCarrinho = ({ carrinho }: Props) => {
                                     </td>
                                     <td>{produto.nome}</td>
                                     <td>R$ {produto.preco.toFixed(2)}</td>
-                                    <td>{quantidade}</td>
+                                    <td>
+                                        <div className="d-flex justify-content-center align-items-center">
+                                            <button onClick={() => handleDiminuirProduto(produto)} className="btn"><svg id="i-arrow-bottom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                <path d="M6 22 L16 30 26 22 M16 30 L16 2" />
+                                            </svg></button>
+                                            <span>{quantidade}</span>
+                                            <button onClick={() => handleAdicionarProduto(produto)} className="btn"><svg id="i-arrow-top" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                <path d="M6 10 L16 2 26 10 M16 2 L16 30" />
+                                            </svg></button>
+                                        </div>
+                                    </td>
                                     <td>R$ {(produto.preco * quantidade).toFixed(2)}</td>
                                     <td>
-                                        <button onClick={() => handleDiminuirProduto(produto)} className="btn btn-danger me-2">-</button>
-                                        <button onClick={() => handleAdicionarProduto(produto)} className="btn btn-primary">+</button>
+                                        <button onClick={() => handleRemoverProduto(produto.id!)} className="btn btn-danger">Remover</button>
                                     </td>
                                 </tr>
                             ))}
-                            <tr>
-                                <td colSpan={4}>Total</td>
-                                <td colSpan={2}>R$ {total}</td>
+                            <tr className="fw-bold">
+                                <td colSpan={4}>Total do Pedido</td>
+                                <td colSpan={0}>R$ {total}</td>
                             </tr>
                         </tbody>
                     </table>

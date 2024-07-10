@@ -16,7 +16,7 @@ const CarrinhoPage = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 mb-5">
       <h1 className="mb-4">Carrinho de Compras</h1>
       {carrinho!.length === 0 ? (
         <div>
@@ -25,12 +25,12 @@ const CarrinhoPage = () => {
       ) : (
         <>
           <TabelaDoCarrinho carrinho={carrinho!} />
-          <div className="d-flex justify-content-end">
+          <div className="d-flex justify-content-between">
+            <Link to="/" className="btn btn-primary mt-3">Voltar aos produtos</Link>
             <button onClick={handleFinalizarCompra} className="btn btn-success mt-3">Finalizar Compra</button>
           </div>
         </>
       )}
-      <Link to="/" className="btn btn-primary">Voltar aos produtos</Link>
     </div>
   );
 };
