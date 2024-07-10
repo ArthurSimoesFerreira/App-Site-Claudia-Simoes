@@ -17,7 +17,11 @@ const TabelaDoCarrinho = ({ carrinho }: Props) => {
     const total = carrinho?.reduce((acc, p) => acc + p.produto.preco * p.quantidade, 0).toFixed(2);
 
     const handleAdicionarProduto = (produto: Produto) => {
-        adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
+        const produtoNoCarrinho = carrinho.find(p => p.produto.id === produto.id);
+
+        if (produtoNoCarrinho && produtoNoCarrinho.quantidade < produto.qtdEstoque) {
+            adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
+        }
     };
 
     const handleDiminuirProduto = (produto: Produto) => {
