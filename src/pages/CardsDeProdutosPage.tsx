@@ -18,6 +18,7 @@ const CardsDeProdutosPage = () => {
 
   return (
     <>
+      <h5 className="d-flex justify-content-center fw-bolder fs-3 m-3" style={{ color: "#d9094a" }}>{slug ? slug.charAt(0).toUpperCase() + slug.slice(1).toUpperCase() + "S" : "PRODUTOS"}</h5>
       <div className="row">
         {produtos?.map((produto) => (
           <div className="col-lg-4 col-md-6 col-sm-12 col-12" key={produto.id}>

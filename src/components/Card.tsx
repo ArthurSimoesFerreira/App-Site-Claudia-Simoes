@@ -15,6 +15,7 @@ const Card = ({ produto, produtoNoCarrinho }: Props) => {
   const { mutate: adicionarProdutoAoCarrinho } = useAdicionarProdutoAoCarrinho();
   const { mutate: diminuirProdutoDoCarrinho } = useDiminuirProdutoDoCarrinho();
   const { mutate: removerProdutoDoCarrinho } = useRemoverProdutoDoCarrinho();
+  const precoAlto = preco * 1.2;
 
   const handleAdicionarProduto = () => {
     adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
@@ -40,7 +41,13 @@ const Card = ({ produto, produtoNoCarrinho }: Props) => {
               <h5 className="card-title" style={{ color: "#d9094a" }}>{titulo}</h5>
             </Link>
             <p className="card-text">{descricao}</p>
-            <p className="card-text fw-bold" style={{ color: "rgb(220, 53, 69)" }}>
+            <p className="card-text fw-bold text-decoration-line-through" style={{ color: "#bd1919" }}>
+              R$ {precoAlto.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+                useGrouping: true
+              })}</p>
+            <p className="card-text fw-bold" style={{ color: "#19bd44" }}>
               R$ {preco.toLocaleString("pt-BR", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
