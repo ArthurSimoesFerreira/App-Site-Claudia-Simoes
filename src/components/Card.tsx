@@ -18,7 +18,11 @@ const Card = ({ produto, produtoNoCarrinho }: Props) => {
   const precoAlto = preco * 1.2;
 
   const handleAdicionarProduto = () => {
-    adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
+    if (produtoNoCarrinho && produto.qtdEstoque > produtoNoCarrinho.quantidade) {
+      adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
+    } else if (produto && !produtoNoCarrinho) {
+      adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
+    }
   };
 
   const handleDiminuirProduto = () => {
@@ -41,7 +45,7 @@ const Card = ({ produto, produtoNoCarrinho }: Props) => {
               <h5 className="card-title" style={{ color: "#d9094a" }}>{titulo}</h5>
             </Link>
             <p className="card-text">{descricao}</p>
-            <p className="card-text fw-bold text-decoration-line-through" style={{ color: "#bd1919" }}>
+            <p className="card-text fw-bold text-decoration-line-through" style={{ color: "#db0b0b" }}>
               R$ {precoAlto.toLocaleString("pt-BR", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,

@@ -24,7 +24,11 @@ const DetalhesDoProdutoPage = () => {
     if (error) throw error;
 
     const handleAdicionarProduto = () => {
-        adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
+        if (produtoNoCarrinho && produto.qtdEstoque > produtoNoCarrinho.quantidade) {
+            adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
+        } else if (produto && !produtoNoCarrinho) {
+            adicionarProdutoAoCarrinho({ produtoId: produto.id!, quantidade: 1 });
+        }
     };
 
     const handleDiminuirProduto = () => {
