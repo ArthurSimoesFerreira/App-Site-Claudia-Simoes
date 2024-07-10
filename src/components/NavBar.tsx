@@ -81,7 +81,7 @@ function NavBar() {
                 </Link>
               )}
             </div>
-            <div className="d-flex justify-content-center align-items-center">
+            <div className="d-flex justify-content-center align-items-center ms-2">
               <Link to="/carrinho" style={{ textDecoration: "none", color: "#d9094a" }}>
                 <svg id="i-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                   <path d="M6 6 L30 6 27 19 9 19 M27 23 L10 23 5 2 2 2" />
